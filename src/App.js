@@ -1,13 +1,14 @@
 import './App.css';
 import React from 'react';
-import SpreadSheet from './container/SpreadSheet';
+import Spreadsheet from './new/container/SpreadSheet';
 
 function App() {
-  return (
-    <div className="App">
-      <SpreadSheet column={5} row={5} />
-    </div>
-  );
+    return (
+        <div className="App">
+            <Spreadsheet row={5}
+                         column={5} />
+        </div>
+    );
 }
 
 export default App;
