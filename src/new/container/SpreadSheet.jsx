@@ -112,7 +112,7 @@ export default class Spreadsheet extends React.Component {
                 this.onClick(selectedCell.row[1], selectedCell.column[1] + 1, e);
             }
         } else if(e.key === 'ArrowUp') {
-            if(selectedCell.column[1] > 0) {
+            if(selectedCell.row[1] > 0) {
                 this.onClick(selectedCell.row[1] - 1, selectedCell.column[1], e);
             }
         } else if(e.key === 'ArrowDown') {
@@ -122,9 +122,47 @@ export default class Spreadsheet extends React.Component {
         }
     }
 
+    pasteData() {
+        const { clipboard, selectedCell, row, column } = this.state;
+        const targetRow = selectedCell.row[0];
+        const targetColumn = selectedCell.column[0];
+        const newRowsRequired = targetRow + clipboard.length - row;
+        const newColumnsRequired = targetColumn + clipboard[0].length - column;
+        const sheet = [...this.state.sheet];
+        this.setState({sheet});
+        this.increaseSpreadSheet(newRowsRequired, sheet, 'row');
+        this.increaseSpreadSheet(newColumnsRequired, sheet, 'column');
+        for(let row = 0; row < clipboard.length; row++) {
+            for(let column = 0; column < clipboard[0].length; column++) {
+                sheet[row + targetRow][column + targetColumn] = clipboard[row][column];
+            }
+        }
+        this.setState({
+            sheet,
+            row: row + newRowsRequired,
+            column: column + newColumnsRequired,
+            editableCell: {
+                row: null,
+                column: null
+            }
+        })
+    }
+
+    increaseSpreadSheet(count, sheet, type) {
+        if(count > 0) {
+            for(let i = 0; i < count; i++) {
+                if(type === 'row')
+                    sheet.push(new Array(sheet[0].length).fill(""));
+                else
+                    sheet.forEach(row => row.push(""));
+            }
+        }
+        return sheet;
+    }
+
     render() {
         const { sheet, column, editableCell, selectedCell, showCopied } = this.state;
-        return <div>
+        return <div style={{width: this.state.column * 110 + 60}}>
             {
                 <Row row={new Array(column).fill('')}
                      onClick={() => {}}
