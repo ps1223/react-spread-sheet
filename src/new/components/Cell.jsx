@@ -6,6 +6,10 @@ export default class Cell extends React.Component {
         this.props.onChange(row, column, event.target.value);
     }
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return this.props.value !== nextProps.value || this.props.isSelected !== nextProps.isSelected || this.props.showCopied !== nextProps.showCopied;
+    }
+
     render() {
         const { row, column, value, isHeader, isSelected, isEditable, showCopied, onBlur, onClick, style } = this.props;
         const selectedStyle = isSelected ? selectedCellStyle : {};
