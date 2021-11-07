@@ -6,7 +6,9 @@ import AddNew from './AddNew';
 export default class Row extends React.Component {
 
     render() {
-        const { row, rowIndex, isHeader, selectedCell, editableCell, onBlur, onAdd, onChange, onClick } = this.props
+        const { row, rowIndex, isHeader, selectedCell, editableCell, showCopied, onBlur, onAdd, onChange, onClick } = this.props
+        const selectedRows = [...selectedCell.row].sort();
+        const selectedColumns = [...selectedCell.column].sort();
         return <div style={{display: 'flex'}}>
             <Cell isHeader
                   style={{width: 30}}
@@ -18,13 +20,14 @@ export default class Row extends React.Component {
                     if(isHeader) {
                         value = columnLetter;
                     }
-                    const isSelected = selectedCell && selectedCell.row.includes(rowIndex) && selectedCell.column.includes(column);
+                    const isSelected = (selectedRows[0] <= rowIndex && selectedRows[1] >= rowIndex) && (selectedColumns[0] <= column && selectedColumns[1] >= column);
                     const isEditable = editableCell && editableCell.row === rowIndex && editableCell.column === column;
                     return <Cell key={`${columnLetter}${row}`}
                                  row={rowIndex}
                                  column={column}
                                  isHeader={isHeader}
                                  isSelected={isSelected}
+                                 showCopied={showCopied}
                                  isEditable={isEditable}
                                  onBlur={onBlur}
                                  onChange={onChange}

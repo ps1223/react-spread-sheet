@@ -1,6 +1,4 @@
 import React from 'react';
-import Row from './Row';
-import AddButton from '../../components/AddButton';
 import Cell from './Cell';
 
 export default class AddNew extends React.Component {

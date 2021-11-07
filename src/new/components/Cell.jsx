@@ -7,10 +7,11 @@ export default class Cell extends React.Component {
     }
 
     render() {
-        const { row, column, value, isHeader, isSelected, isEditable, onBlur, onClick, style } = this.props;
+        const { row, column, value, isHeader, isSelected, isEditable, showCopied, onBlur, onClick, style } = this.props;
         const selectedStyle = isSelected ? selectedCellStyle : {};
+        const copiedStyle = showCopied && isSelected ? copiedCellStyle : {};
         const headerStyle = isHeader ? headerCellStyle : {};
-        const cellStyle = {...baseStyle, ...selectedStyle, ...headerStyle, ...style};
+        const cellStyle = {...baseStyle, ...selectedStyle, ...copiedStyle, ...headerStyle, ...style};
         return <div style={cellStyle} onClick={onClick.bind(null, row, column)}>
             {
                 isEditable ?
@@ -26,6 +27,12 @@ export default class Cell extends React.Component {
         </div>
     }
 
+}
+
+const copiedCellStyle = {
+    border: '2px dotted green',
+    height: 23,
+    width: 98
 }
 
 const selectedCellStyle = {
