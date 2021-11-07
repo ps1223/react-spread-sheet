@@ -7,8 +7,8 @@ export default class Row extends React.Component {
 
     render() {
         const { row, rowIndex, isHeader, selectedCell, editableCell, showCopied, onBlur, onAdd, onChange, onClick } = this.props
-        const selectedRows = [...selectedCell.row].sort();
-        const selectedColumns = [...selectedCell.column].sort();
+        const selectedRows = [...selectedCell.row].sort((a, b) => a - b);
+        const selectedColumns = [...selectedCell.column].sort((a, b) => a - b);
         return <div style={{display: 'flex'}}>
             <Cell isHeader
                   style={{width: 30}}
