@@ -162,7 +162,7 @@ export default class Spreadsheet extends React.Component {
 
     render() {
         const { sheet, column, editableCell, selectedCell, showCopied } = this.state;
-        return <div style={{width: this.state.column * 110 + 60}}>
+        return <div style={{width: this.state.column * 103 + 60}}>
             {
                 <Row row={new Array(column).fill('')}
                      onClick={() => {}}
