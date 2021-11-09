@@ -7,6 +7,9 @@ export default class AddNew extends React.Component {
         return <Cell value="+"
                      isHeader
                      style={defaultStyle}
+                     onMouseDown={() => {}}
+                     onMouseUp={() => {}}
+                     onMouseEnter={() => {}}
                      onClick={this.props.onClick} />
 
     }

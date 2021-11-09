@@ -7,21 +7,26 @@ export default class Cell extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return this.props.value !== nextProps.value || this.props.isSelected !== nextProps.isSelected || this.props.showCopied !== nextProps.showCopied;
+        return this.props.value !== nextProps.value ||
+                this.props.isSelected !== nextProps.isSelected ||
+                this.props.showCopied !== nextProps.showCopied ||
+                this.props.isEditable !== nextProps.isEditable;
     }
 
     render() {
-        const { row, column, value, isHeader, isSelected, isEditable, showCopied, onBlur, onClick, style } = this.props;
+        const { row, column, value, isHeader, isSelected, isEditable, showCopied, onClick, onMouseEnter, style } = this.props;
         const selectedStyle = isSelected ? selectedCellStyle : {};
         const copiedStyle = showCopied && isSelected ? copiedCellStyle : {};
         const headerStyle = isHeader ? headerCellStyle : {};
         const cellStyle = {...baseStyle, ...selectedStyle, ...copiedStyle, ...headerStyle, ...style};
-        return <div style={cellStyle} onClick={onClick.bind(null, row, column)}>
+        return <div style={cellStyle}
+                    onMouseDown={onClick.bind(null, row, column)}
+                    onMouseEnter={onMouseEnter.bind(null, row, column)}
+                    onClick={onClick.bind(null, row, column)}>
             {
                 isEditable ?
                     <input value={value}
-                           autoFocus={true}
-                           onBlur={onBlur.bind(null, row, column)}
+                           autoFocus
                            onChange={this.onChange.bind(this, row, column)} />
                     :
                     <span>

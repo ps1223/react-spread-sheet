@@ -36,9 +36,16 @@ export default class Spreadsheet extends React.Component {
         this.setState({sheet});
     }
 
+    onMouseEnter(row, column, event) {
+        if(event.buttons === 1) {
+            this.onClick(row, column, event);
+        }
+    }
+
     onClick(row, column, event) {
-        const { editableCell, selectedCell} = this.state;
-        if(event.shiftKey) {
+        event.preventDefault();
+        const { editableCell, selectedCell } = this.state;
+        if(event.shiftKey || (event.buttons === 1 && event.type !== "mousedown")) {
             editableCell.row = null;
             editableCell.column = null;
         } else {
@@ -129,7 +136,7 @@ export default class Spreadsheet extends React.Component {
         const newRowsRequired = targetRow + clipboard.length - row;
         const newColumnsRequired = targetColumn + clipboard[0].length - column;
         const sheet = [...this.state.sheet];
-        this.setState({sheet});
+        // this.setState({sheet});
         this.increaseSpreadSheet(newRowsRequired, sheet, 'row');
         this.increaseSpreadSheet(newColumnsRequired, sheet, 'column');
         for(let row = 0; row < clipboard.length; row++) {
@@ -139,8 +146,8 @@ export default class Spreadsheet extends React.Component {
         }
         this.setState({
             sheet,
-            row: row + newRowsRequired,
-            column: column + newColumnsRequired,
+            row: row + (newRowsRequired > 0 ? newRowsRequired : 0),
+            column: column + (newColumnsRequired > 0 ? newColumnsRequired : 0),
             editableCell: {
                 row: null,
                 column: null
@@ -165,6 +172,7 @@ export default class Spreadsheet extends React.Component {
         return <div style={{width: this.state.column * 103 + 60}}>
             {
                 <Row row={new Array(column).fill('')}
+                     onMouseEnter={() => {}}
                      onClick={() => {}}
                      selectedCell={selectedCell}
                      onAdd={this.addColumn.bind(this)}
@@ -177,8 +185,8 @@ export default class Spreadsheet extends React.Component {
                                                rowIndex={index}
                                                editableCell={editableCell}
                                                selectedCell={selectedCell}
+                                               onMouseEnter={this.onMouseEnter.bind(this)}
                                                onChange={this.onChange.bind(this)}
-                                               onBlur={() => {}}
                                                onClick={this.onClick.bind(this)} />)
             }
             <AddNew onClick={this.addRow.bind(this)} />

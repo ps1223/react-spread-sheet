@@ -6,12 +6,13 @@ import AddNew from './AddNew';
 export default class Row extends React.Component {
 
     render() {
-        const { row, rowIndex, isHeader, selectedCell, editableCell, showCopied, onBlur, onAdd, onChange, onClick } = this.props
+        const { row, rowIndex, isHeader, selectedCell, editableCell, showCopied, onAdd, onChange, onClick, onMouseEnter } = this.props
         const selectedRows = [...selectedCell.row].sort((a, b) => a - b);
         const selectedColumns = [...selectedCell.column].sort((a, b) => a - b);
         return <div style={{display: 'flex'}}>
             <Cell isHeader
                   style={{width: 30}}
+                  onMouseEnter={() => {}}
                   value={isHeader ? ' ' : rowIndex + 1}
                   onClick={() => {}} />
             {
@@ -29,8 +30,8 @@ export default class Row extends React.Component {
                                  isSelected={isSelected}
                                  showCopied={showCopied}
                                  isEditable={isEditable}
-                                 onBlur={onBlur}
                                  onChange={onChange}
+                                 onMouseEnter={onMouseEnter}
                                  onClick={onClick}
                                  value={value} />
                 })
