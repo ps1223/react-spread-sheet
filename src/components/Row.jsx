@@ -1,6 +1,6 @@
 import React from 'react';
 import Cell from './Cell';
-import {colName} from '../../utils/Utils';
+import {colName} from '../utils/Utils';
 import AddNew from './AddNew';
 
 export default class Row extends React.Component {

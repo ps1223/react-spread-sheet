@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import Spreadsheet from './new/container/SpreadSheet';
+import Spreadsheet from './container/SpreadSheet';
 
 function App() {
     return (
