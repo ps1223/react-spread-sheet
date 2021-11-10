@@ -29,9 +29,7 @@ export default class Cell extends React.Component {
                            autoFocus
                            onChange={this.onChange.bind(this, row, column)} />
                     :
-                    <span>
-                        {value}
-                    </span>
+                    <span style={spanStyle}>{value}</span>
             }
         </div>
     }
@@ -55,6 +53,14 @@ const baseStyle = {
     height: 25,
     textAlign: 'center',
     border: '1px solid #888'
+}
+
+const spanStyle = {
+    display: 'block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: '100%'
 }
 
 const headerCellStyle = {
