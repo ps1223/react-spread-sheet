@@ -59,7 +59,7 @@ const baseStyle = {
 const spanStyle = {
     display: 'block',
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    textOverflow: 'clip',
     whiteSpace: 'nowrap',
     maxWidth: '100%'
 }
